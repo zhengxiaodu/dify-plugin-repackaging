@@ -49,6 +49,20 @@ jobs:
         with:
           python-version: "3.12"
 
+      # 1. 强制更新 pip + 清除旧缓存
+      - name: Update pip and clear cache
+        run: |
+          python -m pip install --upgrade pip
+          pip cache purge
+      
+      # 2. 强制 pip 刷新 PyPI 索引（关键！）
+      - name: Install dependencies
+        run: |
+          pip install --upgrade --force-reinstall --no-cache-dir -r requirements.txt
+        env:
+          PIP_INDEX_URL: https://pypi.org/simple
+          PIP_DISABLE_PIP_VERSION_CHECK: 1
+
       - name: Make plugin_repackaging.sh executable
         run: chmod +x ./plugin_repackaging.sh
 
