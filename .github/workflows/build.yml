@@ -55,13 +55,7 @@ jobs:
           python -m pip install --upgrade pip --only-binary=:all:
           pip cache purge
       
-      # 2. 强制 pip 刷新 PyPI 索引（关键！）
-      - name: Install dependencies
-        run: |
-          pip install --upgrade --force-reinstall --no-cache-dir -r requirements.txt
-        env:
-          PIP_INDEX_URL: https://pypi.org/simple
-          PIP_DISABLE_PIP_VERSION_CHECK: 1
+      
 
       - name: Make plugin_repackaging.sh executable
         run: chmod +x ./plugin_repackaging.sh
