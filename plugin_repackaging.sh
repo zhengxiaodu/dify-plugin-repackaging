@@ -330,6 +330,8 @@ PY
 	  
 	  # pypandoc-binary: 1.16.2 不存在，改为 >=1.16.2
 	  sed -i 's/pypandoc-binary~=1.16.2/pypandoc-binary>=1.16.2/g' "$REQ_FILE"
+	  # gevent: 25.5.1 不存在，改为 >=24.0.0,<25.0.0
+  	  sed -i 's/gevent~=25.5.1/gevent>=24.0.0,<25.0.0/g' "$REQ_FILE"
 	  
 	  # 可扩展其他修复规则...
 	  
