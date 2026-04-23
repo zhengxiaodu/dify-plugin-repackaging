@@ -321,6 +321,24 @@ PY
 
 	[ ! -f "requirements.txt" ] && echo "✗ Error: requirements.txt not found" && exit 1
 
+	# =========== 新增：自动修复无效版本约束 ===========
+	fix_requirements() {
+	  local REQ_FILE="requirements.txt"
+	  [ -f "$REQ_FILE" ] || return 0
+	  
+	  echo "Fixing invalid version constraints in $REQ_FILE..."
+	  
+	  # pypandoc-binary: 1.16.2 不存在，改为 >=1.16.2
+	  sed -i 's/pypandoc-binary~=1.16.2/pypandoc-binary>=1.16.2/g' "$REQ_FILE"
+	  
+	  # 可扩展其他修复规则...
+	  
+	  echo "✓ requirements.txt fixed"
+	}
+	# =========== 新增结束 ===========
+	
+	# 在 Step 3 之前调用
+	fix_requirements  # ← 添加这行
 	# ============================================
 	# Step 3: Download Python dependencies as wheels
 	# ============================================
